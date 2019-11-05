@@ -1,5 +1,9 @@
 require 'gosu'
 
+module ZOrder
+    BACKGROUND, STARS, PLAYER, UI = *0..3
+end
+
 class Tutorial < Gosu::Window
     def initialize
         super 640, 480
@@ -61,9 +65,6 @@ class Tutorial < Gosu::Window
     end
 end
 
-module ZOrder
-    BACKGROUND, STARS, PLAYER, UI = *0..3
-end
 
 class Player
     attr_reader :score
