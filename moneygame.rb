@@ -12,9 +12,8 @@ class Tutorial < Gosu::Window
 
         @star_anim = Gosu::Image.load_tiles("media/star.png", 25, 25)
         @stars = Array.new
+        @bigs = Array.new
         @font = Gosu::Font.new(20)
-
-        @big = Big.new
     end
   
     def update
@@ -34,7 +33,9 @@ class Tutorial < Gosu::Window
             @stars.push(Star.new(@star_anim))
         end
 
-        @big.move
+        if rand(100) < 1 and @stars.size < 2
+            @stars.push(Star.new(@star_anim))
+        end
     end
   
     def draw
@@ -44,7 +45,10 @@ class Tutorial < Gosu::Window
         star.draw
         star.move
         }
-        @big.draw
+        @bigs.each { |big| 
+        big.draw
+        big.move
+        }
         @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, Gosu::Color::YELLOW)
     end
   
@@ -58,7 +62,7 @@ class Tutorial < Gosu::Window
 end
 
 module ZOrder
-    BACKGROUND, STARS, PIZZA, PLAYER, UI = *0..3
+    BACKGROUND, STARS, PLAYER, UI = *0..3
 end
 
 class Player
@@ -151,7 +155,7 @@ class Big
     end
     
     def draw
-        @image.draw(@x, @y, ZOrder::PIZZA)    
+        @image.draw(@x, @y, ZOrder::STARS)    
     end
 end
 
